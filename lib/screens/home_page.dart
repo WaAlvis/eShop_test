@@ -64,11 +64,4 @@ class Product {
     );
   }
 }
-// String imageUrl;
-// var imagesJson = json['image'] as Map<String, dynamic>;
-//
-// if (imagesJson != null) {
-//   imageUrl = imagesJson['name'] as String;
-// } else {
-//   imageUrl = 'https://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png';
-// }
+
