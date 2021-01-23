@@ -9,13 +9,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: fetchPhotos(http.Client()),
-        builder: (BuildContext context, AsyncSnapshot<List<Photo>> snapshot) {
-          if (snapshot.data is List<Photo>) {
+        future: fetchProducts(http.Client()),
+        builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
+          if (snapshot.data is List<Product>) {
             return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext ctxt, int Index) {
-                  return Text(snapshot.data[Index].name);
+                  return Image.network(snapshot.data[Index].image);
                 });
           } else {
             return Center(
@@ -28,29 +28,39 @@ class HomePage extends StatelessWidget {
   }
 }
 
-List<Photo> parsePhotos(String responseBody) {
+List<Product> parseProducts(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
-  return parsed.map<Photo>((json) => Photo.fromJson(json)).toList();
+  return parsed.map<Product>((json) => Product.fromJson(json)).toList();
 }
 
-Future<List<Photo>> fetchPhotos(http.Client client) async {
+Future<List<Product>> fetchProducts(http.Client client) async {
   final response = await client.get('https://winkels-strapi.herokuapp.com/products');
 
-  return compute(parsePhotos, response.body);
+  return compute(parseProducts, response.body);
 }
 
-class Photo {
-  final String name;
-  final String description;
+class Product {
+  final String productName;
+  String descriptionProduct;
+  final String image;
 
-  Photo({this.name, this.description});
+  Product({this.image, this.productName, this.descriptionProduct});
 
-  factory Photo.fromJson(Map<String, dynamic> json) {
-    return Photo(
-      // image: imageUrl,
-      name: json['name'],
-      description: json['description'],
+  factory Product.fromJson(Map<String, dynamic> json) {
+    String imageUrl;
+    Map<String, dynamic> imageJson = json['image'] as Map<String, dynamic>;
+
+    if (imageJson != null) {
+      imageUrl = imageJson['name'] as String;
+    }else{
+      imageUrl='https://bubbleerp.sysfosolutions.com/img/default-pro.jpg';
+    }
+
+    return Product(
+      image: imageUrl,
+      productName: json['name'] as String,
+      descriptionProduct: json['description'] as String ?? 'La descripcion de esrte producto no se encuentra temporalmente',
     );
   }
 }
