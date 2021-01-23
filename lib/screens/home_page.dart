@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
             return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext ctxt, int Index) {
-                  return Text(snapshot.data[Index].description);
+                  return Text(snapshot.data[Index].name);
                 });
           } else {
             return Center(
@@ -44,18 +44,9 @@ class Photo {
   final String name;
   final String description;
 
-  Photo({ this.name, this.description});
+  Photo({this.name, this.description});
 
-  factory Photo.fromJson(Map<String, String> json) {
-    String imageUrl;
-    var imagesJson = json['image'] as Map<String, dynamic>;
-
-    if (imagesJson != null) {
-      imageUrl = imagesJson['name'] as String;
-    } else {
-      imageUrl = 'https://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png';
-    }
-
+  factory Photo.fromJson(Map<String, dynamic> json) {
     return Photo(
       // image: imageUrl,
       name: json['name'],
@@ -63,3 +54,11 @@ class Photo {
     );
   }
 }
+// String imageUrl;
+// var imagesJson = json['image'] as Map<String, dynamic>;
+//
+// if (imagesJson != null) {
+//   imageUrl = imagesJson['name'] as String;
+// } else {
+//   imageUrl = 'https://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png';
+// }
