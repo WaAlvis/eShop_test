@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
             return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext ctxt, int Index) {
-                  return Text(snapshot.data[Index].title);
+                  return Text(snapshot.data[Index].description);
                 });
           } else {
             return Center(
@@ -35,23 +35,31 @@ List<Photo> parsePhotos(String responseBody) {
 }
 
 Future<List<Photo>> fetchPhotos(http.Client client) async {
-  final response = await client.get('https://jsonplaceholder.typicode.com/photos');
+  final response = await client.get('https://winkels-strapi.herokuapp.com/products');
 
   return compute(parsePhotos, response.body);
 }
 
 class Photo {
-  final int id;
-  final String title;
-  final String thumbnailUrl;
+  final String name;
+  final String description;
 
-  Photo({this.id, this.title, this.thumbnailUrl});
+  Photo({ this.name, this.description});
 
-  factory Photo.fromJson(Map<String, dynamic> json) {
+  factory Photo.fromJson(Map<String, String> json) {
+    String imageUrl;
+    var imagesJson = json['image'] as Map<String, dynamic>;
+
+    if (imagesJson != null) {
+      imageUrl = imagesJson['name'] as String;
+    } else {
+      imageUrl = 'https://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png';
+    }
+
     return Photo(
-      id: json['id'] as int,
-      title: json['title'] as String,
-      thumbnailUrl: json['thumbnailUrl'] as String,
+      // image: imageUrl,
+      name: json['name'],
+      description: json['description'],
     );
   }
 }
