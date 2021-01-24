@@ -8,6 +8,8 @@ import 'package:e_shop_test/services/get_networking.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:http/http.dart' as http;
 
+import 'detail_product_screen.dart';
+
 class HomePage extends StatefulWidget {
   static String id = 'home_screen';
 
@@ -43,8 +45,8 @@ class _HomePageState extends State<HomePage> {
           if (snapshot.connectionState == ConnectionState.done) {
             return viewList == true
                 ? GridViewWidgetCustom(
-                    dataUrl: snapshot,
-                  )
+                  dataUrl: snapshot,
+                )
                 : ListViewWidgetCustom(
                     dataUrl: snapshot,
                   );
@@ -58,4 +60,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-

@@ -1,3 +1,4 @@
+import 'package:e_shop_test/screens/detail_product_screen.dart';
 import 'package:e_shop_test/services/get_networking.dart';
 import 'package:flutter/material.dart';
 
@@ -16,25 +17,39 @@ class GridViewWidgetCustom extends StatelessWidget {
       gridDelegate:
           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 4.0, mainAxisSpacing: 4.0),
       itemBuilder: (BuildContext context, int Index) {
-        return Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: Image.network(
-                  dataUrl.data[Index].image,
-                  fit: BoxFit.cover,
-                ),
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return DetailProductScreen(
+                    dataProduct: dataUrl.data[Index],
+                  );
+                },
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Text(
-                  dataUrl.data[Index].productName,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-                  maxLines: 2,
+            );
+          },
+          child: Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: Image.network(
+                    dataUrl.data[Index].image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              )
-            ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(
+                    dataUrl.data[Index].productName,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                    maxLines: 2,
+                  ),
+                )
+              ],
+            ),
           ),
         );
       },
