@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
       body: FutureBuilder(
         future: fetchProducts(http.Client()),
         builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
-          if (snapshot.data is List<Product>) {
+          if (snapshot.connectionState == ConnectionState.done) {
             return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext ctxt, int Index) {
@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
                 });
           } else {
             return Center(
-              child: Text('Error no hay informacion'),
+              child: CircularProgressIndicator(),
             );
           }
         },
@@ -53,15 +53,14 @@ class Product {
 
     if (imageJson != null) {
       imageUrl = imageJson['name'] as String;
-    }else{
-      imageUrl='https://bubbleerp.sysfosolutions.com/img/default-pro.jpg';
+    } else {
+      imageUrl = 'https://bubbleerp.sysfosolutions.com/img/default-pro.jpg';
     }
 
     return Product(
       image: imageUrl,
       productName: json['name'] as String,
-      descriptionProduct: json['description'] as String ?? 'La descripcion de esrte producto no se encuentra temporalmente',
+      descriptionProduct: json['description'] as String ?? 'La descripcion de este producto no se encuentra temporalmente',
     );
   }
 }
-
