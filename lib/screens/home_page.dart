@@ -67,56 +67,6 @@ class _HomePageState extends State<HomePage> {
               }
             },
           ),
-          Container(
-            color: Colors.orange,
-            child: _futureAlbum == null
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            TextField(
-                              controller: _controllerName,
-                              decoration: InputDecoration(hintText: 'Enter Name'),
-                            ),
-                            TextField(
-                              controller: _controllerDescription,
-                              decoration: InputDecoration(hintText: 'Enter Description'),
-                            )
-                          ],
-                        ),
-                      ),
-                      ElevatedButton(
-                        child: Text('Create Data'),
-                        onPressed: () {
-                          setState(() {
-                            _futureAlbum = createProduct(
-                                nameProduct: _controllerName.text, descriptionProduct: _controllerDescription.text);
-                          });
-                        },
-                      ),
-                    ],
-                  )
-                : FutureBuilder<ProductModel>(
-                    future: _futureAlbum,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Column(
-                          children: [
-                            Text(snapshot.data.nameProduct),
-                            Text(snapshot.data.descriptionProduct),
-                          ],
-                        );
-                      } else if (snapshot.hasError) {
-                        return Text("${snapshot.error}");
-                      }
-
-                      return CircularProgressIndicator();
-                    },
-                  ),
-          ),
         ],
       ),
     );
