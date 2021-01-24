@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-
 Future<ProductModel> createProduct({String nameProduct, String descriptionProduct}) async {
   final http.Response response = await http.post(
     'https://winkels-strapi.herokuapp.com/products',
@@ -37,4 +36,3 @@ Future<List<ProductModel>> fetchProducts(http.Client client) async {
 
   return compute(parseProducts, response.body);
 }
-

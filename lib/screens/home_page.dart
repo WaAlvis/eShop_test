@@ -15,9 +15,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final TextEditingController _controllerName = TextEditingController();
-  final TextEditingController _controllerDescription = TextEditingController();
-  Future<ProductModel> _futureAlbum;
+  // final TextEditingController _controllerName = TextEditingController();
+  // final TextEditingController _controllerDescription = TextEditingController();
+  // Future<ProductModel> _futureAlbum;
   bool viewList = false;
 
   void changeShowElement() {
@@ -48,63 +48,62 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.add),
         backgroundColor: Colors.green,
       ),
-      body: Stack(
-        children: [
-          FutureBuilder(
-            future: getProductsData(),
-            builder: (BuildContext context, AsyncSnapshot<List<ProductModel>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return viewList == true
-                    ? GridViewWidgetCustom(
-                        dataUrl: snapshot,
-                      )
-                    : ListViewWidgetCustom(
-                        dataUrl: snapshot,
-                      );
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
-          ),
-        ],
+      body: FutureBuilder(
+        future: getProductsData(),
+        builder: (BuildContext context, AsyncSnapshot<List<ProductModel>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return viewList == true
+                ? GridViewWidgetCustom(
+                    dataUrl: snapshot,
+                  )
+                : ListViewWidgetCustom(
+                    dataUrl: snapshot,
+                  );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }
 }
 
 _openPopup(context) {
+  final TextEditingController _controllerName = TextEditingController();
+  final TextEditingController _controllerDescription = TextEditingController();
+
   Alert(
       context: context,
-      title: "LOGIN",
+      title: "Create Product",
       content: Column(
         children: <Widget>[
           TextField(
+            controller: _controllerName,
             decoration: InputDecoration(
-              icon: Icon(Icons.account_circle),
-              labelText: 'Username',
+              hintText: 'Enter Name',
+              icon: Icon(Icons.looks_one_outlined),
             ),
           ),
           TextField(
-            obscureText: true,
+            controller: _controllerDescription,
             decoration: InputDecoration(
-              icon: Icon(Icons.lock),
-              labelText: 'Password',
+              hintText: 'Enter Description',
+              icon: Icon(Icons.looks_two_outlined),
             ),
           ),
         ],
       ),
       buttons: [
         DialogButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            createProduct(nameProduct: _controllerName.text, descriptionProduct: _controllerDescription.text);
+          },
           child: Text(
-            "LOGIN",
+            "SEND",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
         )
       ]).show();
 }
-
-
-
