@@ -4,26 +4,26 @@ import 'dart:convert';
 
 
 
-List<Product> parseProducts(String responseBody) {
+List<ProductModel> parseProducts(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
-  return parsed.map<Product>((json) => Product.fromJson(json)).toList();
+  return parsed.map<ProductModel>((json) => ProductModel.fromJson(json)).toList();
 }
 
-Future<List<Product>> fetchProducts(http.Client client) async {
+Future<List<ProductModel>> fetchProducts(http.Client client) async {
   final response = await client.get('https://winkels-strapi.herokuapp.com/products');
 
   return compute(parseProducts, response.body);
 }
 
-class Product {
+class ProductModel {
   final String productName;
   String descriptionProduct;
   final String image;
 
-  Product({this.image, this.productName, this.descriptionProduct});
+  ProductModel({this.image, this.productName, this.descriptionProduct});
 
-  factory Product.fromJson(Map<String, dynamic> json) {
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
     String imageUrl;
     Map<String, dynamic> imageJson = json['image'] as Map<String, dynamic>;
 
@@ -33,7 +33,7 @@ class Product {
       imageUrl = 'https://bubbleerp.sysfosolutions.com/img/default-pro.jpg';
     }
 
-    return Product(
+    return ProductModel(
       image: imageUrl,
       productName: json['name'] as String ?? 'Name not avalible',
       descriptionProduct: json['description'] as String ?? 'La descripcion de este producto no se encuentra temporalmente',
