@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController _controllerName = TextEditingController();
   final TextEditingController _controllerDescription = TextEditingController();
-  Future<Album> _futureAlbum;
+  Future<Product> _futureAlbum;
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +41,13 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       setState(() {
                         _futureAlbum =
-                            createAlbum(nameProduct: _controllerName.text, descriptionProduct: _controllerDescription.text);
+                            createProduct(nameProduct: _controllerName.text, descriptionProduct: _controllerDescription.text);
                       });
                     },
                   ),
                 ],
               )
-            : FutureBuilder<Album>(
+            : FutureBuilder<Product>(
                 future: _futureAlbum,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Future<Album> createAlbum({String nameProduct, String descriptionProduct}) async {
+Future<Product> createProduct({String nameProduct, String descriptionProduct}) async {
   final http.Response response = await http.post(
     'https://winkels-strapi.herokuapp.com/products',
     headers: <String, String>{
@@ -83,7 +83,7 @@ Future<Album> createAlbum({String nameProduct, String descriptionProduct}) async
   if (response.statusCode == 200 || response.statusCode == 201) {
     // If the server did return a 201 CREATED response,
     // then parse the JSON.
-    return Album.fromJson(jsonDecode(response.body));
+    return Product.fromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
@@ -91,16 +91,16 @@ Future<Album> createAlbum({String nameProduct, String descriptionProduct}) async
   }
 }
 
-class Album {
+class Product {
   final String nameProduct;
   final String descriptionProduct;
 
   // final String image;
 
-  Album({this.nameProduct, this.descriptionProduct});
+  Product({this.nameProduct, this.descriptionProduct});
 
-  factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
       nameProduct: json['name'],
       descriptionProduct: json['description'],
     );
