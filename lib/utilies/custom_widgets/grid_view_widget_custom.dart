@@ -1,8 +1,8 @@
 import 'package:e_shop_test/services/get_networking.dart';
 import 'package:flutter/material.dart';
 
-class GridViewCustom extends StatelessWidget {
-  GridViewCustom({
+class GridViewWidgetCustom extends StatelessWidget {
+  GridViewWidgetCustom({
     this.dataUrl,
     Key key,
   }) : super(key: key);
