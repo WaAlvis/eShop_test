@@ -1,3 +1,4 @@
+import 'package:e_shop_test/getData/post_data_product.dart';
 import 'package:e_shop_test/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,12 @@ class MyApp extends StatelessWidget {
 
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomePage(),
+      initialRoute: TestPostPage.id,
+      routes: {
+        HomePage.id: (context) => HomePage(),
+        TestPostPage.id: (context) => TestPostPage(), //Page for Post Example
+        // LoadingScreen.id:(context)=>LoadingScreen(),
+      },
     );
   }
 }
