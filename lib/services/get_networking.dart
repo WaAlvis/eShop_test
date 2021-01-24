@@ -35,7 +35,7 @@ class Product {
 
     return Product(
       image: imageUrl,
-      productName: json['name'] as String,
+      productName: json['name'] as String ?? 'Name not avalible',
       descriptionProduct: json['description'] as String ?? 'La descripcion de este producto no se encuentra temporalmente',
     );
   }

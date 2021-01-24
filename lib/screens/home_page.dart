@@ -41,7 +41,28 @@ class _HomePageState extends State<HomePage> {
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2, crossAxisSpacing: 4.0, mainAxisSpacing: 4.0),
                     itemBuilder: (BuildContext context, int Index) {
-                      return Image.network(snapshot.data[Index].image);
+                      return
+                        Card(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Expanded(
+                                child: Image.network(
+                                  snapshot.data[Index].image,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8),
+                                child: Text(
+                                  snapshot.data[Index].productName,
+                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                                  maxLines: 2,
+                                ),
+                              )
+                            ],
+                          ),
+                        );
                     },
                   )
                 : Center(child: Text('data'));
