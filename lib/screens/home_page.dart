@@ -1,8 +1,9 @@
 import 'package:e_shop_test/utilies/custom_widgets/grid_view_widget_custom.dart';
 import 'package:e_shop_test/utilies/custom_widgets/app_bar_custom.dart';
 import 'package:e_shop_test/utilies/custom_widgets/list_view_widget_custom.dart';
+import 'package:e_shop_test/utilies/product_model.dart';
 import 'package:flutter/material.dart';
-import 'package:e_shop_test/services/get_networking.dart';
+import 'package:e_shop_test/services/networking.dart';
 import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {

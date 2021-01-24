@@ -1,9 +1,11 @@
 import 'dart:math';
 
 import 'package:e_shop_test/screens/detail_product_screen.dart';
-import 'package:e_shop_test/services/get_networking.dart';
+import 'package:e_shop_test/services/networking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+import '../product_model.dart';
 
 class ListViewWidgetCustom extends StatelessWidget {
   final AsyncSnapshot<List<ProductModel>> dataUrl;

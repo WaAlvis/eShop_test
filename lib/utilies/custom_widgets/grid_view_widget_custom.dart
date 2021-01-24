@@ -1,6 +1,8 @@
 import 'package:e_shop_test/screens/detail_product_screen.dart';
-import 'package:e_shop_test/services/get_networking.dart';
+import 'package:e_shop_test/services/networking.dart';
 import 'package:flutter/material.dart';
+
+import '../product_model.dart';
 
 class GridViewWidgetCustom extends StatelessWidget {
   GridViewWidgetCustom({

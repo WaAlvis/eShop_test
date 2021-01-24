@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:e_shop_test/services/get_networking.dart';
+import 'package:e_shop_test/services/networking.dart';
+import 'package:e_shop_test/utilies/product_model.dart';
 import 'package:flutter/material.dart';
 
 class DetailProductScreen extends StatefulWidget {

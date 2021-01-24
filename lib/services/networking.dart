@@ -1,3 +1,4 @@
+import 'package:e_shop_test/utilies/product_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -37,27 +38,3 @@ Future<List<ProductModel>> fetchProducts(http.Client client) async {
   return compute(parseProducts, response.body);
 }
 
-class ProductModel {
-  final String nameProduct;
-  final String descriptionProduct;
-  final String imageProduct;
-
-  ProductModel({this.imageProduct, this.nameProduct, this.descriptionProduct});
-
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    String imageUrl;
-    Map<String, dynamic> imageJson = json['image'] as Map<String, dynamic>;
-
-    if (imageJson != null) {
-      imageUrl = imageJson['name'] as String;
-    } else {
-      imageUrl = 'https://bubbleerp.sysfosolutions.com/img/default-pro.jpg';
-    }
-
-    return ProductModel(
-      imageProduct: imageUrl,
-      nameProduct: json['name'] as String ?? 'Name not avalible',
-      descriptionProduct: json['description'] as String ?? 'La descripcion de este producto no se encuentra temporalmente',
-    );
-  }
-}
