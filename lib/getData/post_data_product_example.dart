@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class TestPostPage extends StatefulWidget {
-  static String id = 'test_Post_Screen';
+  static String id = 'test_Post_screen';
 
   @override
   _HomePageState createState() => _HomePageState();

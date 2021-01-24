@@ -19,7 +19,7 @@ class ProductModel {
   Future<List<ProductModel>> fetchProducts(http.Client client) async {
     final response = await client.get('https://winkels-strapi.herokuapp.com/products');
 
-    return compute(parseProducts, response.body);
+    return parseProducts(response.body);
   }
 
   ProductModel({this.image, this.productName, this.descriptionProduct});
