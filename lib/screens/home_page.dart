@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Future<Album> createAlbum({String nameProduct, String descriptionProduct}) async {
+Future<Album> createAlbum({String nameProduct}) async {
   final http.Response response = await http.post(
     'https://winkels-strapi.herokuapp.com/products',
     headers: <String, String>{
@@ -62,10 +62,10 @@ Future<Album> createAlbum({String nameProduct, String descriptionProduct}) async
     },
     body: jsonEncode(<String, String>{
       'name': nameProduct,
-      'description': descriptionProduct,
+      // 'description': descriptionProduct,
     }),
   );
-  if (response.statusCode == 201) {
+  if (response.statusCode == 200) {
     // If the server did return a 201 CREATED response,
     // then parse the JSON.
     return Album.fromJson(jsonDecode(response.body));
