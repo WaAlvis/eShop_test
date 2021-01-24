@@ -5,6 +5,7 @@ import 'package:e_shop_test/utilies/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:e_shop_test/services/networking.dart';
 import 'package:http/http.dart' as http;
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class HomePage extends StatefulWidget {
   static String id = 'home_screen';
@@ -42,7 +43,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // _showMyDialog();
+          _openPopup(context);
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.green,
@@ -72,5 +73,38 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+_openPopup(context) {
+  Alert(
+      context: context,
+      title: "LOGIN",
+      content: Column(
+        children: <Widget>[
+          TextField(
+            decoration: InputDecoration(
+              icon: Icon(Icons.account_circle),
+              labelText: 'Username',
+            ),
+          ),
+          TextField(
+            obscureText: true,
+            decoration: InputDecoration(
+              icon: Icon(Icons.lock),
+              labelText: 'Password',
+            ),
+          ),
+        ],
+      ),
+      buttons: [
+        DialogButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text(
+            "LOGIN",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        )
+      ]).show();
+}
+
 
 
