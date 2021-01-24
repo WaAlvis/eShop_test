@@ -77,7 +77,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
         children: [
           Expanded(
             child: Image.network(
-              widget.dataProduct.image,
+              widget.dataProduct.imageProduct,
               fit: BoxFit.cover,
             ),
           ),
@@ -95,7 +95,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                     height: 20,
                   ),
                   Text(
-                    widget.dataProduct.productName,
+                    widget.dataProduct.nameProduct,
                     style: Theme.of(context).textTheme.bodyText1,
                     textAlign: TextAlign.justify,
                   )

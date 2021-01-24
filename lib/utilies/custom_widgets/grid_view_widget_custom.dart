@@ -36,14 +36,14 @@ class GridViewWidgetCustom extends StatelessWidget {
               children: [
                 Expanded(
                   child: Image.network(
-                    dataUrl.data[Index].image,
+                    dataUrl.data[Index].imageProduct,
                     fit: BoxFit.cover,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Text(
-                    dataUrl.data[Index].productName,
+                    dataUrl.data[Index].nameProduct,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     maxLines: 2,
                   ),

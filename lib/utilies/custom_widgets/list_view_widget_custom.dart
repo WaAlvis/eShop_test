@@ -36,7 +36,7 @@ class ListViewWidgetCustom extends StatelessWidget {
               children: [
                 Expanded(
                   child: Image.network(
-                    dataUrl.data[Index].image,
+                    dataUrl.data[Index].imageProduct,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -50,7 +50,7 @@ class ListViewWidgetCustom extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        dataUrl.data[Index].productName,
+                        dataUrl.data[Index].nameProduct,
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                         maxLines: 2,
                       ),

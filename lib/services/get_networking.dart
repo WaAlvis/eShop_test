@@ -3,6 +3,27 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 
+Future<ProductModel> createProduct({String nameProduct, String descriptionProduct}) async {
+  final http.Response response = await http.post(
+    'https://winkels-strapi.herokuapp.com/products',
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'name': nameProduct,
+      'description': descriptionProduct,
+    }),
+  );
+  if (response.statusCode == 201 || response.statusCode == 200) {
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON.
+    return ProductModel.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to load album');
+  }
+}
 
 List<ProductModel> parseProducts(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
@@ -17,11 +38,11 @@ Future<List<ProductModel>> fetchProducts(http.Client client) async {
 }
 
 class ProductModel {
-  final String productName;
-  String descriptionProduct;
-  final String image;
+  final String nameProduct;
+  final String descriptionProduct;
+  final String imageProduct;
 
-  ProductModel({this.image, this.productName, this.descriptionProduct});
+  ProductModel({this.imageProduct, this.nameProduct, this.descriptionProduct});
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     String imageUrl;
@@ -34,8 +55,8 @@ class ProductModel {
     }
 
     return ProductModel(
-      image: imageUrl,
-      productName: json['name'] as String ?? 'Name not avalible',
+      imageProduct: imageUrl,
+      nameProduct: json['name'] as String ?? 'Name not avalible',
       descriptionProduct: json['description'] as String ?? 'La descripcion de este producto no se encuentra temporalmente',
     );
   }
