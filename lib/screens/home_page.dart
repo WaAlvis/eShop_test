@@ -9,7 +9,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controllerName = TextEditingController();
+  final TextEditingController _controllerDescription = TextEditingController();
   Future<Album> _futureAlbum;
 
   @override
@@ -22,16 +23,25 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      controller: _controller,
-                      decoration: InputDecoration(hintText: 'Enter Title'),
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller: _controllerName,
+                          decoration: InputDecoration(hintText: 'Enter Name'),
+                        ),
+                        TextField(
+                          controller: _controllerDescription,
+                          decoration: InputDecoration(hintText: 'Enter Description'),
+                        )
+                      ],
                     ),
                   ),
                   ElevatedButton(
                     child: Text('Create Data'),
                     onPressed: () {
                       setState(() {
-                        _futureAlbum = createAlbum(nameProduct: _controller.text);
+                        _futureAlbum =
+                            createAlbum(nameProduct: _controllerName.text, descriptionProduct: _controllerDescription.text);
                       });
                     },
                   ),
@@ -41,7 +51,12 @@ class _HomePageState extends State<HomePage> {
                 future: _futureAlbum,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return Text(snapshot.data.nameProduct);
+                    return Column(
+                      children: [
+                        Text(snapshot.data.nameProduct),
+                        Text(snapshot.data.descriptionProduct),
+                      ],
+                    );
                   } else if (snapshot.hasError) {
                     return Text("${snapshot.error}");
                   }
@@ -54,7 +69,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Future<Album> createAlbum({String nameProduct}) async {
+Future<Album> createAlbum({String nameProduct, String descriptionProduct}) async {
   final http.Response response = await http.post(
     'https://winkels-strapi.herokuapp.com/products',
     headers: <String, String>{
@@ -62,10 +77,10 @@ Future<Album> createAlbum({String nameProduct}) async {
     },
     body: jsonEncode(<String, String>{
       'name': nameProduct,
-      // 'description': descriptionProduct,
+      'description': descriptionProduct,
     }),
   );
-  if (response.statusCode == 200 || response.statusCode ==201) {
+  if (response.statusCode == 200 || response.statusCode == 201) {
     // If the server did return a 201 CREATED response,
     // then parse the JSON.
     return Album.fromJson(jsonDecode(response.body));
