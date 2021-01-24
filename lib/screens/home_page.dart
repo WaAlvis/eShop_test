@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:e_shop_test/services/get_networking.dart';
-
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatelessWidget {
-   final dataProducts;
   static String id = 'home_screen';
 
-  const HomePage({Key key, this.dataProducts}) : super(key: key);
+  Future<List<Product>> getProductsData() async {
+    return await fetchProducts(http.Client());
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: dataProducts,
-        builder: (BuildContext context, AsyncSnapshot<List<ProductModel>> snapshot) {
+        future: getProductsData(),
+        builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return ListView.builder(
                 itemCount: snapshot.data.length,
