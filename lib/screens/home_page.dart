@@ -1,11 +1,11 @@
 import 'package:e_shop_test/utilies/custom_widgets/grid_view_widget_custom.dart';
 import 'package:e_shop_test/utilies/custom_widgets/app_bar_custom.dart';
 import 'package:e_shop_test/utilies/custom_widgets/list_view_widget_custom.dart';
+import 'package:e_shop_test/utilies/custom_widgets/pop_up_package.dart';
 import 'package:e_shop_test/utilies/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:e_shop_test/services/networking.dart';
 import 'package:http/http.dart' as http;
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class HomePage extends StatefulWidget {
   static String id = 'home_screen';
@@ -34,12 +34,13 @@ class _HomePageState extends State<HomePage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100),
         child: AppBarCustom(
+          viewList: viewList,
           onPressed: changeShowElement,
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _openPopup(context);
+          openPopup(context);
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.green,
@@ -64,50 +65,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
-
-_openPopup(context) {
-  final TextEditingController _controllerName = TextEditingController();
-  final TextEditingController _controllerDescription = TextEditingController();
-
-  Alert(
-      context: context,
-      title: "Create Product",
-      content: Column(
-        children: <Widget>[
-          TextField(
-            controller: _controllerName,
-            decoration: InputDecoration(
-              hintText: 'Enter Name',
-              icon: Icon(Icons.looks_one_outlined),
-            ),
-          ),
-          TextField(
-            controller: _controllerDescription,
-            decoration: InputDecoration(
-              hintText: 'Enter Description',
-              icon: Icon(Icons.looks_two_outlined),
-            ),
-          ),
-        ],
-      ),
-      buttons: [
-        DialogButton(
-          onPressed: () {
-            createProduct(nameProduct: _controllerName.text, descriptionProduct: _controllerDescription.text);
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return HomePage();
-                },
-              ),
-            );
-          },
-          child: Text(
-            "SEND",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-        )
-      ]).show();
 }
