@@ -15,10 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // final TextEditingController _controllerName = TextEditingController();
-  // final TextEditingController _controllerDescription = TextEditingController();
-  // Future<ProductModel> _futureAlbum;
   bool viewList = false;
+  bool productCreated = false;
 
   void changeShowElement() {
     setState(() {
@@ -29,8 +27,6 @@ class _HomePageState extends State<HomePage> {
   Future<List<ProductModel>> getProductsData() async {
     return await fetchProducts(http.Client());
   }
-
-  postProductData() {}
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +95,14 @@ _openPopup(context) {
         DialogButton(
           onPressed: () {
             createProduct(nameProduct: _controllerName.text, descriptionProduct: _controllerDescription.text);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return HomePage();
+                },
+              ),
+            );
           },
           child: Text(
             "SEND",
