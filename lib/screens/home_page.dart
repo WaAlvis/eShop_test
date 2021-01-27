@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:e_shop_test/utilies/custom_widgets/grid_view_widget_custom.dart';
 import 'package:e_shop_test/utilies/custom_widgets/app_bar_custom.dart';
 import 'package:e_shop_test/utilies/custom_widgets/list_view_widget_custom.dart';
@@ -14,7 +15,6 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-
 class _HomePageState extends State<HomePage> {
   bool viewList = false;
   bool productCreated = false;
@@ -26,9 +26,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<List<ProductModel>> getProductsData() async {
-
-    ProductRepository productRepository = ProductRepository(client: );
-    return await productRepository.fetchProducts(http.Client());
+    ProductRepository productRepository = ProductRepository(Dio());
+    List<ProductModel> fetchedProducts = await productRepository.fetchProducts();
+    print(fetchedProducts);
+    return fetchedProducts;
   }
 
   @override

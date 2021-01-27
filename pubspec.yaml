@@ -33,6 +33,7 @@ dependencies:
   rflutter_alert: ^1.1.0
   flutter_bloc: ^6.1.1
   equatable: ^1.2.5
+  dio: ^3.0.10
 
 dev_dependencies:
   flutter_test:

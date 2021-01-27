@@ -14,7 +14,7 @@ class ProductsCubit extends Cubit<ProductsState> {
   void _getProducts() async {
     try {
       emit(LoadingState());
-      final products = await repository.fetchProducts(http.Client());
+      final products = await repository.fetchProducts();
       emit(LoadedState(products));
     } catch (e) {
       emit(ErrorState());
