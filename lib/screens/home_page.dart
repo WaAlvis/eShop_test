@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:e_shop_test/utilies/custom_widgets/grid_view_widget_custom.dart';
 import 'package:e_shop_test/utilies/custom_widgets/app_bar_custom.dart';
 import 'package:e_shop_test/utilies/custom_widgets/list_view_widget_custom.dart';
@@ -25,7 +26,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<List<ProductModel>> getProductsData() async {
-    return await fetchProducts(http.Client());
+
+    ProductRepository productRepository = ProductRepository(Dio());
+    return await productRepository.fetchProducts(http.Client());
   }
 
   @override
