@@ -17,12 +17,12 @@ class LoadingState extends ProductsState {
 }
 
 class LoadedState extends ProductsState {
-  LoadedState(this.movies);
+  LoadedState(this.products);
 
-  final List<ProductModel> movies;
+  final List<ProductModel> products;
 
   @override
-  List<Object> get props => [movies];
+  List<Object> get props => [products];
 }
 
 class ErrorState extends ProductsState {
