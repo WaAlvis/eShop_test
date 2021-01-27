@@ -1,11 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:e_shop_test/screens/home_page.dart';
 import 'package:e_shop_test/services/networking.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:http/http.dart' as http;
 
 openPopup(context) {
   final TextEditingController _controllerName = TextEditingController();
   final TextEditingController _controllerDescription = TextEditingController();
+  ProductRepository productRepository = ProductRepository(Dio());
 
   Alert(
       context: context,
@@ -31,7 +34,8 @@ openPopup(context) {
       buttons: [
         DialogButton(
           onPressed: () {
-            createProduct(nameProduct: _controllerName.text, descriptionProduct: _controllerDescription.text);
+            productRepository.createProduct(
+                nameProduct: _controllerName.text, descriptionProduct: _controllerDescription.text);
             Navigator.push(
               context,
               MaterialPageRoute(
