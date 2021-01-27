@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:e_shop_test/utilies/product_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -8,7 +7,7 @@ import 'dart:convert';
 class ProductRepository{
 ProductRepository(this.client);
 
-final Dio client;
+final Future<ProductModel> client;
 
 Future<ProductModel> createProduct({String nameProduct, String descriptionProduct}) async {
   final http.Response response = await http.post(
