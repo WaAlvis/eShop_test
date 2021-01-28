@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:e_shop_test/cubit/product_state.dart';
+import 'package:e_shop_test/services/networking.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
@@ -11,12 +13,12 @@ class ProductsCubit extends Cubit<ProductsState> {
     _getTrendingMovies();
   }
 
-  final MovieRepository repository;
+  final ProductRepository repository;
 
   void _getTrendingMovies() async {
     try {
       emit(LoadingState());
-      final movies = await repository.getMovies();
+      final movies = await repository.fetchProducts(Dio());
       emit(LoadedState(movies));
     } catch (e) {
       emit(ErrorState());

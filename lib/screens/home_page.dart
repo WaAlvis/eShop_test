@@ -9,8 +9,6 @@ import 'package:e_shop_test/services/networking.dart';
 import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
-  static String id = 'home_screen';
-
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -26,9 +24,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<List<ProductModel>> getProductsData() async {
-
     ProductRepository productRepository = ProductRepository(Dio());
-    return await productRepository.fetchProducts(http.Client());
+    return await productRepository.fetchProducts(Dio());
   }
 
   @override
@@ -48,7 +45,9 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.add),
         backgroundColor: Colors.green,
       ),
-      body: FutureBuilder(
+      body:
+
+      FutureBuilder(
         future: getProductsData(),
         builder: (BuildContext context, AsyncSnapshot<List<ProductModel>> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
