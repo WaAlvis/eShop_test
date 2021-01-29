@@ -37,10 +37,22 @@ class ProductRepository {
     return parsed.map<ProductModel>((json) => ProductModel.fromJson(json)).toList();
   }
 
-  Future<List<ProductModel>> fetchProducts(client) async {
-    final response = await client.get('https://winkels-strapi.herokuapp.com/products');
+  Future<List<ProductModel>> fetchProducts() async {
+    try{
+      final url = 'https://winkels-strapi.herokuapp.com/products';
 
+      final response = await client.get(url);
+
+      final products = List<ProductModel>.of(
+        response.data.map<ProductModel>(
+              (json) => ProductModel(
+            title: json['title'],
+            urlImage: 'https://image.tmdb.org/t/p/w185${json['poster_path']}',
+          ),
+        ),
+      );
+
+    }
     // return compute(parseProducts, response.data);
-    return response.data;
   }
 }
