@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:e_shop_test/cubit/product_state.dart';
 import 'package:e_shop_test/services/networking.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

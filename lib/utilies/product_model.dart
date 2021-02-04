@@ -1,24 +1,26 @@
 class ProductModel {
   final String nameProduct;
   final String descriptionProduct;
-  final String imageProduct;
+  final Map<String, dynamic> imageProduct;
 
-  ProductModel({this.imageProduct, this.nameProduct, this.descriptionProduct});
+  ProductModel({this.nameProduct, this.descriptionProduct, this.imageProduct});
+}
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    String imageUrl;
-    Map<String, dynamic> imageJson = json['image'] as Map<String, dynamic>;
+String getImageProd({productList, i}) {
+  String imageUrl;
 
-    if (imageJson != null) {
-      imageUrl = imageJson['name'] as String;
-    } else {
-      imageUrl = 'https://bubbleerp.sysfosolutions.com/img/default-pro.jpg';
-    }
+  if (productList.elementAt(i)?.imageProduct?.containsKey('name') == true) {
+    imageUrl = productList.elementAt(i).imageProduct['name'];
+  } else {
+    imageUrl = 'https://forestprod.org/global_graphics/default-store-350x350.jpg';
+  }
+  return imageUrl;
+}
 
-    return ProductModel(
-      imageProduct: imageUrl,
-      nameProduct: json['name'] as String ?? 'Name not avalible',
-      descriptionProduct: json['description'] as String ?? 'La descripcion de este producto no se encuentra temporalmente',
-    );
+String getNameProd({productList, i}) {
+  String nameUrl;
+
+  if (productList.elementAt(i)?.nameProduct == null) {
+    return nameUrl = 'Name Producto';
   }
 }
