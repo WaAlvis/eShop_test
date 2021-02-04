@@ -8,10 +8,7 @@ class DetailProductScreen extends StatefulWidget {
   static String id = 'detail_screen';
   final ProductModel dataProduct;
 
-
   const DetailProductScreen({Key key, this.dataProduct}) : super(key: key);
-
-
 
   @override
   _DetailProductScreenState createState() => _DetailProductScreenState();
@@ -41,14 +38,14 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                     Scaffold.of(context).showSnackBar(SnackBar(
                       content: isFavorite == false
                           ? Row(
-                        children: [
-                          Icon(Icons.star),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Text('Agregado a Favoritos!!')
-                        ],
-                      )
+                              children: [
+                                Icon(Icons.star),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text('Agregado a Favoritos!!')
+                              ],
+                            )
                           : Text('Quitado de las lista de Favoritos'),
                     ));
                     setState(() {
@@ -76,12 +73,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
-            child: Image.network(
-              widget.dataProduct.imageProduct,
-              fit: BoxFit.cover,
-            ),
-          ),
+          Expanded(child: Icon(Icons.image)),
           Expanded(
             child: Padding(
               padding: EdgeInsets.all(20),

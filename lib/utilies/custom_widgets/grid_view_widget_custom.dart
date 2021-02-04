@@ -6,19 +6,31 @@ import '../product_model.dart';
 
 class GridViewWidgetCustom extends StatelessWidget {
   GridViewWidgetCustom({
-    this.dataUrl,
+    this.productList,
     Key key,
   }) : super(key: key);
 
-  final AsyncSnapshot<List<ProductModel>> dataUrl;
+  final List<ProductModel> productList;
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: dataUrl.data.length,
+      itemCount: productList.length,
       gridDelegate:
           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 4.0, mainAxisSpacing: 4.0),
-      itemBuilder: (BuildContext context, int Index) {
+      itemBuilder: (BuildContext context, int index) {
+        String imageUrl;
+        String nameUrl;
+        if (productList.elementAt(index)?.imageProduct?.containsKey('name') == true) {
+          imageUrl = productList.elementAt(index).imageProduct['name'];
+        } else {
+          imageUrl = 'https://forestprod.org/global_graphics/default-store-350x350.jpg';
+        }
+
+        if (productList.elementAt(index)?.nameProduct == null) {
+          nameUrl = 'Nombre del Producto';
+        }
+
         return GestureDetector(
           onTap: () {
             Navigator.push(
@@ -26,7 +38,7 @@ class GridViewWidgetCustom extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) {
                   return DetailProductScreen(
-                    dataProduct: dataUrl.data[Index],
+                    dataProduct: productList[index],
                   );
                 },
               ),
@@ -38,14 +50,14 @@ class GridViewWidgetCustom extends StatelessWidget {
               children: [
                 Expanded(
                   child: Image.network(
-                    dataUrl.data[Index].imageProduct,
+                    imageUrl,
                     fit: BoxFit.cover,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Text(
-                    dataUrl.data[Index].nameProduct,
+                    productList[index].nameProduct ?? nameUrl,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     maxLines: 2,
                   ),

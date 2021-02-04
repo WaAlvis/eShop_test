@@ -8,7 +8,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../product_model.dart';
 
 class ListViewWidgetCustom extends StatelessWidget {
-  final AsyncSnapshot<List<ProductModel>> dataUrl;
+  final List<ProductModel> dataUrl;
 
   ListViewWidgetCustom({
     Key key,
@@ -18,7 +18,7 @@ class ListViewWidgetCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: dataUrl.data.length,
+      itemCount: dataUrl.length,
       itemBuilder: (BuildContext ctxt, int Index) {
         return GestureDetector(
           onTap: () {
@@ -27,7 +27,7 @@ class ListViewWidgetCustom extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) {
                   return DetailProductScreen(
-                    dataProduct: dataUrl.data[Index],
+                    dataProduct: dataUrl[Index],
                   );
                 },
               ),
@@ -37,10 +37,12 @@ class ListViewWidgetCustom extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: Image.network(
-                    dataUrl.data[Index].imageProduct,
-                    fit: BoxFit.cover,
-                  ),
+                  child:Icon(Icons.image),
+
+                  // Image.network(
+                  //   dataUrl[Index].imageProduct,
+                  //   fit: BoxFit.cover,
+                  // ),
                 ),
                 SizedBox(
                   width: 14,
@@ -52,7 +54,7 @@ class ListViewWidgetCustom extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        dataUrl.data[Index].nameProduct,
+                        dataUrl[Index].nameProduct,
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                         maxLines: 2,
                       ),

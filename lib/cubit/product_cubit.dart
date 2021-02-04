@@ -10,16 +10,16 @@ class WeatherCubit extends Cubit<ProductsState> {
 
 class ProductsCubit extends Cubit<ProductsState> {
   ProductsCubit({this.repository}) : super(InitialState()) {
-    _getTrendingMovies();
+    _getProducts();
   }
 
   final ProductRepository repository;
 
-  void _getTrendingMovies() async {
+  void _getProducts() async {
     try {
       emit(LoadingState());
-      final movies = await repository.fetchProducts(Dio());
-      emit(LoadedState(movies));
+      final products = await repository.fetchProducts();
+      emit(LoadedState(products));
     } catch (e) {
       emit(ErrorState());
     }

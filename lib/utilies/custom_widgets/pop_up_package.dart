@@ -34,15 +34,15 @@ openPopup(context) {
       buttons: [
         DialogButton(
           onPressed: () {
-            productRepository.createProduct(nameProduct: _controllerName.text, descriptionProduct: _controllerDescription.text);
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return HomePage();
-                },
-              ),
-            );
+            // productRepository.createProduct(nameProduct: _controllerName.text, descriptionProduct: _controllerDescription.text);
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) {
+            //       return HomePage();
+            //     },
+            //   ),
+            // );
           },
           child: Text(
             "SEND",

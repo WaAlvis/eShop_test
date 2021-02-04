@@ -26,76 +26,48 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Future<List<ProductModel>> getProductsData() async {
-    ProductRepository productRepository = ProductRepository(Dio());
-    return await productRepository.fetchProducts(Dio());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100),
-          child: AppBarCustom(
-            viewList: viewList,
-            onPressed: changeShowElement,
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(100),
+        child: AppBarCustom(
+          viewList: viewList,
+          onPressed: changeShowElement,
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            openPopup(context);
-          },
-          child: Icon(Icons.add),
-          backgroundColor: Colors.green,
-        ),
-        body: BlocBuilder<ProductsCubit, ProductsState>(
-          builder: (context, state) {
-            if (state is LoadingState) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (state is ErrorState) {
-              return Center(
-                child: Icon(Icons.close),
-              );
-            }else if (state is LoadedState) {
-              final products = state.products;
-
-              return  ListView.builder(
-                itemCount: products.length,
-                itemBuilder: (context, index) => Card(
-                  child: ListTile(
-                    title: Text(products[index].nameProduct),
-                    leading: CircleAvatar(
-                      backgroundImage: NetworkImage(products[index].imageProduct),
-                    ),
-                  ),
-                ),
-              );
-            }else {
-              return Container();
-            }
-          },
-        )
-
-        // FutureBuilder(
-        //   future: getProductsData(),
-        //   builder: (BuildContext context, AsyncSnapshot<List<ProductModel>> snapshot) {
-        //     if (snapshot.connectionState == ConnectionState.done) {
-        //       return viewList == true
-        //           ? GridViewWidgetCustom(
-        //               dataUrl: snapshot,
-        //             )
-        //           : ListViewWidgetCustom(
-        //               dataUrl: snapshot,
-        //             );
-        //     } else {
-        //       return Center(
-        //         child: CircularProgressIndicator(),
-        //       );
-        //     }
-        //   },
-        // ),
-        );
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          openPopup(context);
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.green,
+      ),
+      body: BlocBuilder<ProductsCubit, ProductsState>(
+        builder: (context, state) {
+          if (state is LoadingState) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is ErrorState) {
+            return Center(
+              child: Icon(Icons.close),
+            );
+          } else if (state is LoadedState) {
+            final products = state.products;
+            return viewList == true
+                ? GridViewWidgetCustom(
+                    productList: products,
+                  )
+                : ListViewWidgetCustom(
+                    dataUrl: products,
+                  );
+            // Text(products[0].nameProduct);
+          } else {
+            return Container();
+          }
+        },
+      ),
+    );
   }
 }
