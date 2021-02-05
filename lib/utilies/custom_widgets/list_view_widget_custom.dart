@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:e_shop_test/screens/detail_product_screen.dart';
 import 'package:e_shop_test/services/networking.dart';
 import 'package:flutter/material.dart';
@@ -8,18 +7,23 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../product_model.dart';
 
 class ListViewWidgetCustom extends StatelessWidget {
-  final List<ProductModel> dataUrl;
+  final List<ProductModel> productList;
 
   ListViewWidgetCustom({
     Key key,
-    this.dataUrl,
+    this.productList,
   }) : super(key: key);
+
+  final ProductModel productModel = ProductModel();
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: dataUrl.length,
-      itemBuilder: (BuildContext ctxt, int Index) {
+      itemCount: productList.length,
+      itemBuilder: (BuildContext ctxt, int index) {
+        String imageProduct = productModel.getImageProd(productList, index);
+        String nameProduct = productModel.getNameProd(productList, index);
+
         return GestureDetector(
           onTap: () {
             Navigator.push(
@@ -27,7 +31,7 @@ class ListViewWidgetCustom extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) {
                   return DetailProductScreen(
-                    dataProduct: dataUrl[Index],
+                    dataProduct: productList[index],
                   );
                 },
               ),
@@ -37,12 +41,10 @@ class ListViewWidgetCustom extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child:Icon(Icons.image),
-
-                  // Image.network(
-                  //   dataUrl[Index].imageProduct,
-                  //   fit: BoxFit.cover,
-                  // ),
+                  child: Image.network(
+                    imageProduct,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 SizedBox(
                   width: 14,
@@ -54,7 +56,7 @@ class ListViewWidgetCustom extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        dataUrl[Index].nameProduct,
+                        nameProduct,
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                         maxLines: 2,
                       ),
@@ -71,7 +73,7 @@ class ListViewWidgetCustom extends StatelessWidget {
                       ),
                       RatingBarIndicator(
                         rating: rateRandom(),
-                        itemBuilder: (context, index) => Icon(
+                        itemBuilder: (context, i) => Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),

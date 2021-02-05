@@ -9,6 +9,8 @@ class GridViewWidgetCustom extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  final ProductModel productModel = ProductModel();
+
   final List<ProductModel> productList;
 
   @override
@@ -18,12 +20,9 @@ class GridViewWidgetCustom extends StatelessWidget {
       gridDelegate:
           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 4.0, mainAxisSpacing: 4.0),
       itemBuilder: (BuildContext context, int index) {
-        String imageUrl = getImageProd(productList: productList, i: index);
-        String nameUrl = getNameProd(productList: productList, i: index);
+        String imageProduct = productModel.getImageProd(productList, index);
+        String nameProduct = productModel.getNameProd(productList, index);
 
-        if (productList.elementAt(index)?.nameProduct == null) {
-          nameUrl = 'Nombre del Producto';
-        }
 
         return GestureDetector(
           onTap: () {
@@ -44,14 +43,14 @@ class GridViewWidgetCustom extends StatelessWidget {
               children: [
                 Expanded(
                   child: Image.network(
-                    imageUrl,
+                    imageProduct,
                     fit: BoxFit.cover,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Text(
-                    productList[index].nameProduct ?? nameUrl,
+                    productList[index].nameProduct ?? nameProduct,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     maxLines: 2,
                   ),

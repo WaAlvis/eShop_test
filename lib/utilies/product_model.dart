@@ -4,23 +4,21 @@ class ProductModel {
   final Map<String, dynamic> imageProduct;
 
   ProductModel({this.nameProduct, this.descriptionProduct, this.imageProduct});
-}
 
-String getImageProd({productList, i}) {
-  String imageUrl;
+  String getImageProd(productList, i) {
+    String imageUrl;
 
-  if (productList.elementAt(i)?.imageProduct?.containsKey('name') == true) {
-    imageUrl = productList.elementAt(i).imageProduct['name'];
-  } else {
-    imageUrl = 'https://forestprod.org/global_graphics/default-store-350x350.jpg';
+    if (productList.elementAt(i)?.imageProduct?.containsKey('name') == true) {
+      imageUrl = productList.elementAt(i).imageProduct['name'];
+    } else {
+      imageUrl = 'https://forestprod.org/global_graphics/default-store-350x350.jpg';
+    }
+    return imageUrl;
   }
-  return imageUrl;
-}
 
-String getNameProd({productList, i}) {
-  String nameUrl;
+  String getNameProd(productList, i) {
+    String nameUrl = productList[i].nameProduct ?? 'NOMBRE DEL PRODUCTO';
 
-  if (productList.elementAt(i)?.nameProduct == null) {
-    return nameUrl = 'Name Producto';
+    return nameUrl;
   }
 }

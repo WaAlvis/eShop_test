@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                     productList: products,
                   )
                 : ListViewWidgetCustom(
-                    dataUrl: products,
+                    productList: products,
                   );
           } else {
             return Container();
