@@ -5,10 +5,11 @@ import 'package:e_shop_test/utilies/product_model.dart';
 import 'package:flutter/material.dart';
 
 class DetailProductScreen extends StatefulWidget {
-  static String id = 'detail_screen';
-  final ProductModel dataProduct;
+  // static String id = 'detail_screen';
+  final List<ProductModel> listProduct;
+  final int index;
 
-  const DetailProductScreen({Key key, this.dataProduct}) : super(key: key);
+  const DetailProductScreen({Key key, this.listProduct, this.index}) : super(key: key);
 
   @override
   _DetailProductScreenState createState() => _DetailProductScreenState();
@@ -16,9 +17,14 @@ class DetailProductScreen extends StatefulWidget {
 
 class _DetailProductScreenState extends State<DetailProductScreen> {
   bool isFavorite = false;
+  ProductModel productModel = ProductModel();
 
   @override
   Widget build(BuildContext context) {
+    String imageProduct = productModel.getImageProd(widget.listProduct, widget.index);
+    String nameProduct = productModel.getNameProd(widget.listProduct, widget.index);
+    String descriptionProduct = productModel.getDescriptionProd(widget.listProduct, widget.index);
+
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
@@ -35,19 +41,21 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
               builder: (context) => GestureDetector(
                   child: isFavorite == false ? Icon(Icons.star_border) : Icon(Icons.star),
                   onTap: () {
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                      content: isFavorite == false
-                          ? Row(
-                              children: [
-                                Icon(Icons.star),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Text('Agregado a Favoritos!!')
-                              ],
-                            )
-                          : Text('Quitado de las lista de Favoritos'),
-                    ));
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                        content: isFavorite == false
+                            ? Row(
+                                children: [
+                                  Icon(Icons.star),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Text('Agregado a Favoritos!!')
+                                ],
+                              )
+                            : Text('Quitado de las lista de Favoritos'),
+                      ),
+                    );
                     setState(() {
                       isFavorite = !isFavorite;
                     });
@@ -73,7 +81,9 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(child: Icon(Icons.image)),
+          Expanded(
+            child: Image.network(imageProduct),
+          ),
           Expanded(
             child: Padding(
               padding: EdgeInsets.all(20),
@@ -81,14 +91,14 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    widget.dataProduct.descriptionProduct,
+                    descriptionProduct,
                     style: Theme.of(context).textTheme.headline5,
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   Text(
-                    widget.dataProduct.nameProduct,
+                    nameProduct,
                     style: Theme.of(context).textTheme.bodyText1,
                     textAlign: TextAlign.justify,
                   )

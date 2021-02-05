@@ -18,7 +18,11 @@ class ProductModel {
 
   String getNameProd(productList, i) {
     String nameUrl = productList[i].nameProduct ?? 'NOMBRE DEL PRODUCTO';
-
     return nameUrl;
+  }
+
+  String getDescriptionProd(productList, i) {
+    String descriptionUrl = productList[i].descriptionProduct ?? 'Description of product';
+    return descriptionUrl;
   }
 }

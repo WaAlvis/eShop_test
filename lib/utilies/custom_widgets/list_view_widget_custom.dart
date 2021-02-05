@@ -31,7 +31,7 @@ class ListViewWidgetCustom extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) {
                   return DetailProductScreen(
-                    dataProduct: productList[index],
+                    listProduct: productList,index: index,
                   );
                 },
               ),
